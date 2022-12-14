@@ -14,8 +14,7 @@
             <a class="navbar-brand" href="/"><b>LIBRARY </b></a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/add_document">Add Document</a>
+                        <a class="nav-link" href="/add_reader">Add Reader</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/search_book">Search</a>
@@ -28,14 +27,14 @@
         {% include 'includes/_messages.html' %}
         {% block body %}{% endblock %}
         <br>
-        <h1>Add New Member</h1>
+        <h1>Add New Book</h1>
         {% from "includes/_formhelpers.html" import render_field %}
         <form method="POST" action="">
             <div class="form-group">
-                {{render_field(form.name, class_="form-control")}}
+                {{render_field(form.title, class_="form-control")}}
             </div><br>
             <div class="form-group">
-                {{render_field(form.email, class_="form-control", type=email)}}
+                {{render_field(form.publisher, class_="form-control")}}
             </div>
             <br>
             <p><button type="submit" class="btn btn-primary" value="Submit">Submit</button></p>

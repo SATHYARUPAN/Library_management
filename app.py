@@ -11,6 +11,7 @@ def get_db_connection():
     conn = psycopg2.connect(host='localhost',
                             database='Library_management',
                             user= os.environ['postgres'],
+                            port= os.environ['5432'],
                             password= os.environ['appaamma'])
     return conn
 
@@ -20,6 +21,11 @@ db = SQLAlchemy()
 @app.route('/')
 def index():
     return render_template('home.html')
+
+#Route to Reader page
+@app.route('/reader')
+def reader():
+    return render_template('reader.html')
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -43,6 +49,20 @@ def add_reader():
     # Get form data from request
     form = AddReader(request.form)
     return render_template('add_reader.html', form=form)
+
+class AddDocument(Form):
+    title = StringField('Title', [validators.Length(min=1, max=50)])
+    publisher = StringField('Publisher', [validators.length(min=6, max=50)])
+
+
+# Add document
+@app.route('/add_document', methods=['GET', 'POST'])
+def add_document():
+    # Get form data from request
+    form = AddDocument(request.form)
+    return render_template('add_Document.html', form=form)
+
+
 
 
 
