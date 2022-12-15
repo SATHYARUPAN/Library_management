@@ -23,23 +23,30 @@
             </div>
         </div>
     </nav>
-    <div class='container'>
-        {% include 'includes/_messages.html' %}
-        {% block body %}{% endblock %}
-        <br>
-        <h1>Add New Book</h1>
-        {% from "includes/_formhelpers.html" import render_field %}
-        <form method="POST" action="">
-            <div class="form-group">
-                {{render_field(form.title, class_="form-control")}}
-            </div><br>
-            <div class="form-group">
-                {{render_field(form.publisher, class_="form-control")}}
-            </div>
-            <br>
-            <p><button type="submit" class="btn btn-primary" value="Submit">Submit</button></p>
+    section id="add-reader">
+        <h1>Please enter the details and submit to add document</h1>
+        <form method="POST" action="/addDocument">
+            <input name="title" placeholder="document Name" type="text"/>
+            <input name="pdate" placeholder="published  date" type="date"/>
+            <input name="pid" placeholder="published by" type="number"/>
+            <button>Submit</button>
         </form>
 
+        <div id="reader-details">
+            <h1>Existing documents in the db.</h1>
+            <div class="reader">
+                <h1> DOC ID </h1>
+                <h1> DOCUMENT NAME </h1>
+                <h1> PUBLISHED ON</h1>
+                <h1> PUBLISHER ID</h1>
+            </div>
+            {% for doc in documents %}
+                <div class="reader">
+                    <h1>{{ doc['DOCID'] }}</h1>
+                    <h1>{{ doc['TITLE'] }}</h1>
+                    <h1>{{ doc['PDATE'] }}</h1>
+                    <h1>{{ doc['PUBID'] }}</h1>
+                </div>
     </body>
 
 </html>
