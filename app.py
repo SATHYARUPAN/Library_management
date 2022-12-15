@@ -39,18 +39,14 @@ def login():
             return render_template('admin.html')
     return render_template('login.html', error=error)
 
-#class AddReader(Form):
-    name = StringField('Name', [validators.Length(min=1, max=50)])
-    phone = StringField('Phone', [validators.length(min=6, max=50)])
-
 
 # Add Reader
-@app.route('/add_reader', methods=['GET', 'POST'])
-def add_reader():
+@app.route('/show_reader', methods=['GET', 'POST'])
+def show_reader():
     conn = get_db_connection()
     reader = conn.execute("SELECT * FROM Reader").fetchall()
     conn.close
-    return render_template('add_reader.html', reader=reader)
+    return render_template('show_reader.html', reader=reader)
 
 #class AddDocument(Form):
     title = StringField('Title', [validators.Length(min=1, max=50)])
@@ -58,8 +54,8 @@ def add_reader():
 
 
 # Add document
-@app.route('/addDocument', methods=['GET', 'POST'])
-def insertDocument():
+@app.route('/add_document', methods=['GET', 'POST'])
+def add_document():
     conn = get_db_connection()
     title = request.form['title']
     pdate = request.form['pdate']
@@ -70,7 +66,7 @@ def insertDocument():
         conn.commit()
     conn.close()
     flash("Document added!")
-    return redirect('/show_document.html')
+    return render_template('add_document.html')
 
 
 # print document
@@ -83,8 +79,8 @@ def show_document():
 
 
 
-@app.route('/addReader', methods=['GET', 'POST'])
-def insertReader():
+@app.route('/add_reader', methods=['GET', 'POST'])
+def add_reader():
     conn = get_db_connection()
     rname = request.form['reader-name']
     raddress = request.form['reader-address']
@@ -96,13 +92,9 @@ def insertReader():
         conn.commit()
     conn.close()
     flash("User added successfully!!!")
-    return redirect('/adminLogin/addReader')
+    return render_template('/add_reader.html')
 
    
-
-
-
-
 
 if __name__ == '__main__':
     app.debug = True
